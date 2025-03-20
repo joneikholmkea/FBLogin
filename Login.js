@@ -1,5 +1,5 @@
-import React,{use, useState} from "react";
-import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native'
+import React,{useState} from "react";
+import {View, Text, TextInput, Pressable, StyleSheet, Alert} from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 export default function Login({navigation}){
@@ -10,14 +10,14 @@ export default function Login({navigation}){
         console.log("sign up...")
         signInWithEmailAndPassword(auth, email, password).
         then(()=>{ navigation.navigate('NextScreen')}).
-        catch(error => console.log(error));
+        catch(error => Alert.alert(error.message));
     }
 
     function handleSignUp(){
         console.log("sign up...")
         createUserWithEmailAndPassword(auth, email, password).
         then(()=>{ navigation.navigate('NextScreen')}).
-        catch(error => console.log(error));
+        catch(error => Alert.alert(error.message));
     }
     return (
         <View>
