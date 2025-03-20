@@ -6,6 +6,7 @@ import Login from './Login';
 import NextScreen from './NextScreen';
 const Stack = createStackNavigator()
 import { AuthProvider } from './AuthContext';
+
 // tilbage 10.30
 
 export default function App() {
