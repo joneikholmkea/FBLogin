@@ -22,6 +22,7 @@ export default function NextScreen({navigation}){
     }
 
     async function handleNewNote(){
+
         if(note.trim()){
             await addDoc(collection(db, 'users', userID, 'notes'),{
                 text:note
