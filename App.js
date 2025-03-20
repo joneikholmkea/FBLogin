@@ -5,15 +5,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Login';
 import NextScreen from './NextScreen';
 const Stack = createStackNavigator()
+import { AuthProvider } from './AuthContext';
+// tilbage 10.30
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator >
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='NextScreen' component={NextScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator >
+          <Stack.Screen name='Login' component={Login} />
+          <Stack.Screen name='NextScreen' component={NextScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 

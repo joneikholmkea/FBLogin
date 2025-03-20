@@ -3,9 +3,10 @@ import {View, Text, Pressable} from 'react-native'
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import { styles } from "./Login";
+import { useAuth } from "./AuthContext";
 
 export default function NextScreen({navigation}){
-
+    const { userID } = useAuth()
     function handleLogout(){
         signOut(auth).
         then(()=> navigation.navigate('Login')).
@@ -21,6 +22,7 @@ export default function NextScreen({navigation}){
             >
                 <Text>Log out</Text>
             </Pressable>
+            <Text>User ID: {userID}</Text>
         </View> 
     )
 }

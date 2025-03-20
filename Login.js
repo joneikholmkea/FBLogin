@@ -1,10 +1,23 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import {View, Text, TextInput, Pressable, StyleSheet, Alert} from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
+import { useAuth } from "./AuthContext";
+
 export default function Login({navigation}){
     const [email, setEmail] = useState('b@mail.dk')
     const [password, setPassword] = useState('123456')
+    const { setUserID } = useAuth()
+
+    useEffect(()=>{
+        const unsubscribe = auth.onAuthStateChanged(user =>{
+            if(user){
+                setUserID(user.uid)
+                //Alert.alert("bruger id: " + user.uid)
+            }
+        })
+        return unsubscribe // når komponent unmountes, skal vi holde op med at lytte.
+    },[navigation, setUserID])
 
     function handleLogin(){
         console.log("sign up...")
@@ -32,6 +45,7 @@ export default function Login({navigation}){
                 onChangeText={setPassword}
                 secureTextEntry
             />
+            
             <Pressable 
                 style={styles.buttons}
                 onPress={handleSignUp}
