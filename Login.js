@@ -1,10 +1,17 @@
 import React,{use, useState} from "react";
 import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 export default function Login({navigation}){
     const [email, setEmail] = useState('b@mail.dk')
     const [password, setPassword] = useState('123456')
+
+    function handleLogin(){
+        console.log("sign up...")
+        signInWithEmailAndPassword(auth, email, password).
+        then(()=>{ navigation.navigate('NextScreen')}).
+        catch(error => console.log(error));
+    }
 
     function handleSignUp(){
         console.log("sign up...")
@@ -14,7 +21,6 @@ export default function Login({navigation}){
     }
     return (
         <View>
-            <Text>Login på vej...</Text>
             <TextInput 
                 placeholder="email"
                 value={email}
@@ -32,11 +38,17 @@ export default function Login({navigation}){
             >
                 <Text>Sign Up</Text>
             </Pressable>
+            <Pressable 
+                style={styles.buttons}
+                onPress={handleLogin}
+            >
+                <Text>Login</Text>
+            </Pressable>
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     buttons:{
         padding:15,
         backgroundColor:"#88c",
